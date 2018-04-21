@@ -31,7 +31,7 @@ export default class App extends Component<Props> {
           To get started, edit App.js
         </Text>
         <Text style={styles.instructions}>
-          {instructions}ss
+          {instructions}
         </Text>
       </View>
     );
