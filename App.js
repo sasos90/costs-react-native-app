@@ -9,7 +9,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  StatusBar
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -24,6 +25,10 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar
+          backgroundColor="#4CAF50"
+          barStyle="light-content"
+        />
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
@@ -38,21 +43,31 @@ export default class App extends Component<Props> {
   }
 }
 
+export const primaryColorDark = '#388E3C';
+export const primaryColor = '#4CAF50';
+export const primaryColorLight = '#C8E6C9';
+export const primaryColorText = '#FFFFFF';
+export const accentColor = '#03A9F4';
+export const primaryTextColor = '#212121';
+export const secondaryTextColor = '#757575';
+export const dividerColor = '#BDBDBD';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: primaryColor,
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: primaryColorText,
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: primaryColorText,
     marginBottom: 5,
   },
 });
