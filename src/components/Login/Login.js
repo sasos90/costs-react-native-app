@@ -5,8 +5,8 @@
  */
 
 import React, { Component } from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {primaryColor, primaryColorText} from "../../../App";
+import {Image, KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
+import LoginForm from "./LoginForm";
 const logo = require('../../images/logo.jpg');
 
 type Props = {};
@@ -14,16 +14,17 @@ export default class Login extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.logoContainer}>
                     <Image
                         source={logo}
                         style={styles.logo} />
-                    <Text style={styles.title}>Šparanje</Text>
+                    <Text style={styles.title}>ŠPARANJE</Text>
                 </View>
                 <View style={styles.formContainer}>
+                    <LoginForm />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -31,7 +32,7 @@ export default class Login extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: primaryColor,
+        backgroundColor: '#4CAF50',
     },
     logoContainer: {
         alignItems: 'center',
@@ -48,10 +49,10 @@ const styles = StyleSheet.create({
 
     },
     title: {
-        color: primaryColorText,
+        color: '#C8E6C9',
         marginTop: 10,
         width: 160,
+        fontSize: 20,
         textAlign: 'center',
-        opacity: 0.9,
     },
 });
