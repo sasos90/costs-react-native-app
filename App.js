@@ -13,6 +13,7 @@ import {
   StatusBar
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import Login from "./src/components/Login/Login";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -30,21 +31,7 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar
-          backgroundColor="#4CAF50"
-          barStyle="light-content"
-        />
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <Login />
     );
   }
 }
