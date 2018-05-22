@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
-import {StyleSheet, TextInput, View, TouchableOpacity, Text, StatusBar} from 'react-native';
+import {StyleSheet, TextInput, View, TouchableOpacity, Text, StatusBar, Button} from 'react-native';
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
+
+    constructor() {
+        super();
+        this.login = this.login.bind(this);
+    }
+
+    async login() {
+        console.log('new');
+        try {
+            const res = await fetch('http://172.23.159.145:3000/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: 'email@something.com',
+                    password: 'somePassword'
+                })
+            });
+            console.log(await res.json());
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     render() {
         return (
@@ -31,9 +52,10 @@ export default class LoginForm extends Component<Props> {
                     style={styles.input}
                     ref={(input) => this.passwordInput = input}
                 />
-                <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>LOGIN</Text>
-                </TouchableOpacity>
+                <Button
+                    onPress={this.login}
+                    color="#388E3C"
+                    title="LOGIN" />
             </View>
         );
     }
