@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, TextInput, View, TouchableOpacity, Text, StatusBar, Button} from 'react-native';
+import Config from 'react-native-config';
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -10,13 +11,17 @@ export default class LoginForm extends Component<Props> {
     }
 
     async login() {
-        console.log('new');
+        console.log(Config.API_URL);
         try {
-            const res = await fetch('http://172.23.159.145:3000/login', {
+            const res = await fetch(`${Config.API_URL}/login`, {
                 method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
-                    email: 'email@something.com',
-                    password: 'somePassword'
+                    email: 'sasos90@gmail.com',
+                    password: 'asdasd'
                 })
             });
             console.log(await res.json());
