@@ -5,13 +5,16 @@ import Config from 'react-native-config';
 type Props = {};
 export default class LoginForm extends Component<Props> {
 
+    username: string = '';
+    password: string = '';
+
     constructor() {
         super();
         this.login = this.login.bind(this);
     }
 
     async login() {
-        console.log(Config.API_URL);
+        console.log('Start login!', Config.API_URL);
         try {
             const res = await fetch(`${Config.API_URL}/login`, {
                 method: 'POST',
@@ -20,11 +23,12 @@ export default class LoginForm extends Component<Props> {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: 'sasos90@gmail.com',
-                    password: 'asdasd'
+                    email: this.username,
+                    password: this.password
                 })
             });
-            console.log(await res.json());
+            const response = await res.json();
+            console.log(response);
         } catch (err) {
             console.log(err);
         }
@@ -46,6 +50,7 @@ export default class LoginForm extends Component<Props> {
                     onSubmitEditing={() => this.passwordInput.focus()}
                     autoCapitalize="none"
                     style={styles.input}
+                    onChangeText={(username) => this.username = username}
                 />
                 <TextInput
                     placeholder="Password"
@@ -56,6 +61,7 @@ export default class LoginForm extends Component<Props> {
                     secureTextEntry={true}
                     style={styles.input}
                     ref={(input) => this.passwordInput = input}
+                    onChangeText={(password) => this.password = password}
                 />
                 <Button
                     onPress={this.login}
