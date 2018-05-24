@@ -23,7 +23,7 @@ export default class LoginForm extends Component<Props> {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: this.username,
+                    username: this.username,
                     password: this.password
                 })
             });
