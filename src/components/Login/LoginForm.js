@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, TextInput, View, TouchableOpacity, Text, StatusBar, Button} from 'react-native';
 import Config from 'react-native-config';
+import {post, Rest} from "../../helpers/Rest";
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -16,19 +17,16 @@ export default class LoginForm extends Component<Props> {
     async login() {
         console.log('Start login!', Config.API_URL);
         try {
-            const res = await fetch(`${Config.API_URL}/login`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: this.username,
-                    password: this.password
-                })
+            const response = await Rest.post('/login', {
+                username: this.username,
+                password: this.password
             });
-            const response = await res.json();
-            console.log(response);
+            if (response.token) {
+                console.log('Logged in successfull!');
+                console.log(response);
+            } else {
+                console.log('Failed to login', response);
+            }
         } catch (err) {
             console.log(err);
         }

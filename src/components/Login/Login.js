@@ -19,7 +19,7 @@ export default class Login extends Component<Props> {
                     <Image
                         source={logo}
                         style={styles.logo} />
-                    <Text style={styles.title}>ŠPARANJE</Text>
+                    <Text style={styles.title}>STROŠKI</Text>
                 </View>
                 <View style={styles.formContainer}>
                     <LoginForm />
