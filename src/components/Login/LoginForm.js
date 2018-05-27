@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {StyleSheet, TextInput, View, TouchableOpacity, Text, StatusBar, Button} from 'react-native';
+import {Alert, StyleSheet, TextInput, View, StatusBar, Button} from 'react-native';
 import Config from 'react-native-config';
-import {post, Rest} from "../../helpers/Rest";
+import {Rest} from "../../helpers/Rest";
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -26,6 +26,12 @@ export default class LoginForm extends Component<Props> {
                 console.log(response);
             } else {
                 console.log('Failed to login', response);
+                Alert.alert(
+                    'Error',
+                    response.msg,
+                    [],
+                    { cancelable: true }
+                )
             }
         } catch (err) {
             console.log(err);
