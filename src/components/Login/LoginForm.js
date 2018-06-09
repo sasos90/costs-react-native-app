@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Alert, StyleSheet, TextInput, View, StatusBar, Button} from 'react-native';
+import {Alert, StyleSheet, TextInput, View, StatusBar, Button, AsyncStorage} from 'react-native';
 import Config from 'react-native-config';
 import {Rest} from "../../helpers/Rest";
 import {LoggedInContext} from "./LoggedInContext";
+import {KEY_TOKEN, KEY_USER} from "../../helpers/LSK";
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -25,6 +26,9 @@ export default class LoginForm extends Component<Props> {
             if (response.token) {
                 console.log('Logged in successfull!');
                 console.log(response);
+                // Store user and token to storage
+                await AsyncStorage.setItem(KEY_USER, JSON.stringify(response.user));
+                await AsyncStorage.setItem(KEY_TOKEN, response.token);
                 setLogin(response.user.username, response.token);
             } else {
                 console.log('Failed to login', response);
@@ -37,6 +41,12 @@ export default class LoginForm extends Component<Props> {
             }
         } catch (err) {
             console.log(err);
+            Alert.alert(
+                'Error',
+                'Something went wrong',
+                [],
+                { cancelable: true }
+            )
         }
     }
 
