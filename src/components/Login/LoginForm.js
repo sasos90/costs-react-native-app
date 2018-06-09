@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Alert, StyleSheet, TextInput, View, StatusBar, Button} from 'react-native';
 import Config from 'react-native-config';
 import {Rest} from "../../helpers/Rest";
+import {LoggedInContext} from "./LoggedInContext";
 
 type Props = {};
 export default class LoginForm extends Component<Props> {
@@ -14,7 +15,7 @@ export default class LoginForm extends Component<Props> {
         this.login = this.login.bind(this);
     }
 
-    async login() {
+    async login(setLogin) {
         console.log('Start login!', Config.API_URL);
         try {
             const response = await Rest.post('/login', {
@@ -24,6 +25,7 @@ export default class LoginForm extends Component<Props> {
             if (response.token) {
                 console.log('Logged in successfull!');
                 console.log(response);
+                setLogin(response.user.username, response.token);
             } else {
                 console.log('Failed to login', response);
                 Alert.alert(
@@ -40,38 +42,42 @@ export default class LoginForm extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
-                <StatusBar
-                    barStyle="light-content"
-                />
-                <TextInput
-                    placeholder="Username"
-                    autoCorrect={false}
-                    underlineColorAndroid="transparent"
-                    placeholderTextColor={'#212121'}
-                    returnKeyType="next"
-                    keyboardType="email-address"
-                    onSubmitEditing={() => this.passwordInput.focus()}
-                    autoCapitalize="none"
-                    style={styles.input}
-                    onChangeText={(username) => this.username = username}
-                />
-                <TextInput
-                    placeholder="Password"
-                    autoCorrect={false}
-                    underlineColorAndroid="transparent"
-                    placeholderTextColor={'#212121'}
-                    returnKeyType="go"
-                    secureTextEntry={true}
-                    style={styles.input}
-                    ref={(input) => this.passwordInput = input}
-                    onChangeText={(password) => this.password = password}
-                />
-                <Button
-                    onPress={this.login}
-                    color="#388E3C"
-                    title="LOGIN" />
-            </View>
+            <LoggedInContext.Consumer>
+                {({ setLogin }) => (
+                    <View style={styles.container}>
+                        <StatusBar
+                            barStyle="light-content"
+                        />
+                        <TextInput
+                            placeholder="Username"
+                            autoCorrect={false}
+                            underlineColorAndroid="transparent"
+                            placeholderTextColor={'#212121'}
+                            returnKeyType="next"
+                            keyboardType="email-address"
+                            onSubmitEditing={() => this.passwordInput.focus()}
+                            autoCapitalize="none"
+                            style={styles.input}
+                            onChangeText={(username) => this.username = username}
+                        />
+                        <TextInput
+                            placeholder="Password"
+                            autoCorrect={false}
+                            underlineColorAndroid="transparent"
+                            placeholderTextColor={'#212121'}
+                            returnKeyType="go"
+                            secureTextEntry={true}
+                            style={styles.input}
+                            ref={(input) => this.passwordInput = input}
+                            onChangeText={(password) => this.password = password}
+                        />
+                        <Button
+                            onPress={this.login.bind(this, setLogin)}
+                            color="#388E3C"
+                            title="LOGIN" />
+                    </View>
+                )}
+            </LoggedInContext.Consumer>
         );
     }
 }

@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Login from "./src/components/Login/Login";
+import LoggedInProvider, { LoggedInContext } from "./src/components/Login/LoggedInContext";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -31,7 +32,11 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <Login />
+      <LoggedInProvider>
+        <LoggedInContext.Consumer>
+          {({username}) => username ? <Text>Logged in as: {username}</Text> : <Login />}
+        </LoggedInContext.Consumer>
+      </LoggedInProvider>
     );
   }
 }
